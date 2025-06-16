@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Biblioteca - Login</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="auth-wrapper">
+            <div class="auth-header">
+                <div class="logo">
+                    <i class="fas fa-book-open"></i>
+                    <h1>BiblioTech</h1>
+                </div>
+                <p class="subtitle">Sistema de Gerenciamento de Biblioteca</p>
+            </div>
+
+            <!-- Formulário de Login -->
+            <div id="loginForm" class="auth-form active">
+                <h2>Entrar na sua conta</h2>
+                <form id="loginFormElement">
+                    <div class="form-group">
+                        <label for="loginEmail">
+                            <i class="fas fa-envelope"></i>
+                            Email
+                        </label>
+                        <input type="email" id="loginEmail" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="loginPassword">
+                            <i class="fas fa-lock"></i>
+                            Senha
+                        </label>
+                        <input type="password" id="loginPassword" name="senha" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-sign-in-alt"></i>
+                        Entrar
+                    </button>
+                </form>
+                <p class="switch-form">
+                    Não tem uma conta? 
+                    <a href="#" onclick="showRegisterForm()">Cadastre-se aqui</a>
+                </p>
+            </div>
+
+            <!-- Formulário de Registro -->
+            <div id="registerForm" class="auth-form">
+                <h2>Criar nova conta</h2>
+                <form id="registerFormElement">
+                    <div class="form-group">
+                        <label for="registerName">
+                            <i class="fas fa-user"></i>
+                            Nome completo
+                        </label>
+                        <input type="text" id="registerName" name="nome" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerEmail">
+                            <i class="fas fa-envelope"></i>
+                            Email
+                        </label>
+                        <input type="email" id="registerEmail" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerPassword">
+                            <i class="fas fa-lock"></i>
+                            Senha
+                        </label>
+                        <input type="password" id="registerPassword" name="senha" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerProfile">
+                            <i class="fas fa-user-tag"></i>
+                            Tipo de usuário
+                        </label>
+                        <select id="registerProfile" name="perfil" required>
+                            <option value="">Selecione o tipo de usuário</option>
+                            <option value="leitor">Leitor</option>
+                            <option value="bibliotecario">Bibliotecário</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-user-plus"></i>
+                        Cadastrar
+                    </button>
+                </form>
+                <p class="switch-form">
+                    Já tem uma conta? 
+                    <a href="#" onclick="showLoginForm()">Faça login aqui</a>
+                </p>
+            </div>
+
+            <!-- Mensagens de feedback -->
+            <div id="messageContainer" class="message-container"></div>
+        </div>
+
+        <!-- Seção de recursos -->
+        <div class="features-section">
+            <h3>Recursos do Sistema</h3>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-books"></i>
+                    <h4>Catálogo Digital</h4>
+                    <p>Acesse e gerencie todo o acervo da biblioteca de forma digital</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-handshake"></i>
+                    <h4>Empréstimos</h4>
+                    <p>Sistema completo de controle de empréstimos e devoluções</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-users"></i>
+                    <h4>Múltiplos Perfis</h4>
+                    <p>Diferentes níveis de acesso para bibliotecários e leitores</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-chart-line"></i>
+                    <h4>Relatórios</h4>
+                    <p>Acompanhe estatísticas e histórico de empréstimos</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+

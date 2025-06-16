@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel do Leitor - BiblioTech</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="dashboard">
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fas fa-book-open"></i>
+                    <h2>BiblioTech</h2>
+                </div>
+                <div class="user-info">
+                    <i class="fas fa-user"></i>
+                    <span id="userName">Leitor</span>
+                </div>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="active">
+                        <a href="#" onclick="showSection('catalog')">
+                            <i class="fas fa-book"></i>
+                            Catálogo
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" onclick="showSection('myLoans')">
+                            <i class="fas fa-bookmark"></i>
+                            Meus Empréstimos
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" onclick="showSection('profile')">
+                            <i class="fas fa-user-cog"></i>
+                            Perfil
+                        </a>
+                    </li>
+                    <li class="logout">
+                        <a href="#" onclick="logout()">
+                            <i class="fas fa-sign-out-alt"></i>
+                            Sair
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="dashboard-header">
+                <h1 id="sectionTitle">Catálogo de Livros</h1>
+                <div class="header-actions">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="searchCatalog" placeholder="Buscar livros...">
+                    </div>
+                </div>
+            </header>
+
+            <!-- Catalog Section -->
+            <section id="catalogSection" class="content-section active">
+                <div class="stats-cards">
+                    <div class="stat-card">
+                        <i class="fas fa-books"></i>
+                        <div class="stat-info">
+                            <h3 id="totalBooksAvailable">0</h3>
+                            <p>Livros Disponíveis</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-bookmark"></i>
+                        <div class="stat-info">
+                            <h3 id="myActiveLoans">0</h3>
+                            <p>Meus Empréstimos</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-clock"></i>
+                        <div class="stat-info">
+                            <h3 id="pendingReturns">0</h3>
+                            <p>Devoluções Pendentes</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="books-grid" id="booksGrid">
+                    <!-- Livros serão carregados aqui -->
+                </div>
+            </section>
+
+            <!-- My Loans Section -->
+            <section id="myLoansSection" class="content-section">
+                <div class="table-container">
+                    <div class="table-header">
+                        <h3>Meus Empréstimos</h3>
+                        <div class="filter-buttons">
+                            <button class="btn btn-outline active" onclick="filterMyLoans('all')">Todos</button>
+                            <button class="btn btn-outline" onclick="filterMyLoans('ativo')">Ativos</button>
+                            <button class="btn btn-outline" onclick="filterMyLoans('devolvido')">Devolvidos</button>
+                        </div>
+                    </div>
+                    <div class="table-wrapper">
+                        <table id="myLoansTable">
+                            <thead>
+                                <tr>
+                                    <th>Livro</th>
+                                    <th>Autor</th>
+                                    <th>Data Empréstimo</th>
+                                    <th>Data Prevista</th>
+                                    <th>Status</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="myLoansTableBody">
+                                <!-- Empréstimos serão carregados aqui -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Profile Section -->
+            <section id="profileSection" class="content-section">
+                <div class="profile-container">
+                    <div class="profile-card">
+                        <div class="profile-header">
+                            <div class="profile-avatar">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="profile-info">
+                                <h3 id="profileName">Nome do Usuário</h3>
+                                <p id="profileEmail">email@exemplo.com</p>
+                                <span class="profile-badge">Leitor</span>
+                            </div>
+                        </div>
+                        <div class="profile-stats">
+                            <div class="profile-stat">
+                                <h4 id="totalLoansCount">0</h4>
+                                <p>Total de Empréstimos</p>
+                            </div>
+                            <div class="profile-stat">
+                                <h4 id="activeLoansCount">0</h4>
+                                <p>Empréstimos Ativos</p>
+                            </div>
+                            <div class="profile-stat">
+                                <h4 id="returnedLoansCount">0</h4>
+                                <p>Livros Devolvidos</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modal para Detalhes do Livro -->
+    <div id="bookDetailsModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="bookDetailsTitle">Detalhes do Livro</h3>
+                <button class="close-btn" onclick="closeBookDetailsModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="book-details">
+                <div class="book-cover">
+                    <i class="fas fa-book"></i>
+                </div>
+                <div class="book-info">
+                    <h4 id="detailsTitle">Título do Livro</h4>
+                    <p><strong>Autor:</strong> <span id="detailsAuthor">Nome do Autor</span></p>
+                    <p><strong>Ano:</strong> <span id="detailsYear">2024</span></p>
+                    <p><strong>Disponível:</strong> <span id="detailsQuantity">0</span> exemplares</p>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button type="button" class="btn btn-secondary" onclick="closeBookDetailsModal()">Fechar</button>
+                <button type="button" class="btn btn-primary" id="loanBookBtn" onclick="requestLoan()">
+                    <i class="fas fa-handshake"></i>
+                    Solicitar Empréstimo
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Overlay do Modal -->
+    <div id="modalOverlay" class="modal-overlay" onclick="closeBookDetailsModal()"></div>
+
+    <!-- Mensagens de feedback -->
+    <div id="messageContainer" class="message-container"></div>
+
+    <script src="script.js"></script>
+    <script>
+        // Verificar se o usuário está logado e é leitor
+        document.addEventListener('DOMContentLoaded', function() {
+            const token = localStorage.getItem('token');
+            const user = JSON.parse(localStorage.getItem('user') || '{}');
+            
+            if (!token || user.perfil !== 'leitor') {
+                window.location.href = '/';
+                return;
+            }
+            
+            document.getElementById('userName').textContent = user.nome;
+            document.getElementById('profileName').textContent = user.nome;
+            document.getElementById('profileEmail').textContent = user.email;
+            
+            loadCatalog();
+            loadMyLoans();
+            updateStats();
+        });
+    </script>
+</body>
+</html>
+
